@@ -1,23 +1,22 @@
-import React from 'react'
-import player from './player-data'
-
+import React, { useState, useEffect } from 'react'
+import Timer from './Timer'
 
 function StartMenu(props) {
+    const [started, setStarted] = useState(false)
 
     const handleSubmit = (evt) => {
-    
-        props.setState(true)
         evt.preventDefault()
-    
-        
+        setStarted(true)
     }
+
     return (
         <div className="startMenu">
-            <h1>Ready player 1</h1>
-            { props.player.name ? "Get set!!" : "Enter details on side bar"}
-            <form onSubmit= { handleSubmit } >
+            <h1>Ready Player 1</h1>
+            {started ? (
+                <Timer setPlayState={props.setPlayState} />
+            ) : (<form onSubmit={handleSubmit} >
                 <button type="submit">Start</button>
-            </form>
+            </form>)}
         </div>
     )
 }

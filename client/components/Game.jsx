@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react"
 
 import data from "./data.js"
 
-function Game() {
+function Game({ setPlayState }) {
   window.addEventListener("keydown", checkKeyDown, false)
   window.addEventListener("keyup", checkKeyUp, false)
 
@@ -10,11 +10,13 @@ function Game() {
   const paddle = data.paddle
   const gameWidth = 800
   const gameHeight = 500
+  const brickRows = 7
+  const brickCols = 3
   // const gameHeight = document.documentElement.clientHeight
   const canvasRef = useRef(null)
 
   //init bricks
-  let [bricks, setBricks] = useState(data.generateBricks(7, 3))
+  let [bricks, setBricks] = useState(data.generateBricks(brickRows, brickCols))
 
   function checkKeyDown(e) {
     switch (e.keyCode) {
@@ -62,22 +64,18 @@ function Game() {
 
       //check ball dying
       if (ball.y + ball.r >= canvas.height) {
-        //call function to save name if high score
         //prompt to start new game
         function itReset() {
           var erase = confirm("New Game?")
-          if (erase == true) {
-            c.clearRect(0, 0, canvas.width, canvas.height)
-            ball.x = 50
-            ball.y = 50
-            paddle.x = innerWidth / 2
-            paddle.moveRight = false
-            paddle.moveLeft = false
-            bricks = data.generateBricks(7, 3)
-          } else {
-            ball.xSpeed = 0
-            ball.ySpeed = 0
-            ball.y = canvas.height - ball.r - 1
+          c.clearRect(0, 0, canvas.width, canvas.height)
+          ball.x = 50
+          ball.y = 50
+          paddle.x = 400
+          paddle.moveRight = false
+          paddle.moveLeft = false
+          bricks = data.generateBricks(7, 3)
+          if (!erase) {
+            setPlayState(false)
           }
         }
         itReset()
@@ -91,13 +89,16 @@ function Game() {
 
       //check ball collision with paddle
       const paddleCheckResult = data.checkBrickCollision(ball, paddle)
+
       if (paddleCheckResult.hit) {
         if (paddleCheckResult.axis === "X") {
           ball.xSpeed = -ball.xSpeed
         } else if (paddleCheckResult.axis === "Y") {
           ball.ySpeed = -ball.ySpeed
         }
+
       }
+
 
       //check ball collisions with bricks
 
@@ -131,7 +132,6 @@ function Game() {
       c.closePath()
       c.strokeStyle = "rgba(102, 102, 102, 1)"
       c.stroke()
-      console.log(paddle.x, paddle.y);
 
       //draw bricks
 

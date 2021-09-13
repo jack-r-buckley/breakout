@@ -10,8 +10,8 @@ let paddle = {
   moveRight: false,
   moveLeft: false,
   w: 60,
-  h: 10,
-  x: innerWidth / 2,
+  h: 20,
+  x: 400,
   y: 450,
 }
 
@@ -67,6 +67,8 @@ function checkBrickCollision(circle, rect) {
       axis: "X",
     }
   }
+
+  // check corner collisions
 
   let dx = distX - rect.w / 2
   let dy = distY - rect.h / 2
