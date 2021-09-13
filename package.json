@@ -1,11 +1,12 @@
 {
-  "name": "worldwide-routing",
+  "name": "super-arkanoid",
   "version": "0.2.0",
-  "description": "Using React Router to navigate the globe",
-  "repository": "https://github.com/dev-academy-challenges/worldwide-routing.git",
+  "description": "Play the arcade game called Arkanoid or Breakout",
+  "repository": "https://github.com/jack-r-buckley/breakout",
   "main": "server/index.js",
   "scripts": {
     "start": "run-p webpack server",
+    "build": "webpack",
     "dev": "run-p client server",
     "webpack": "webpack",
     "client": "webpack --watch",
