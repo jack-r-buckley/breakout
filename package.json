@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server",
     "dev": "run-p client server",
-    "build": "webpack --mode production --config ./webpack.prod.config.js",
+    "build": "webpack --mode production --config ./webpack.config.js",
     "webpack": "webpack",
     "client": "webpack --watch",
     "server": "node server",
